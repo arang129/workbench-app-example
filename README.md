@@ -39,9 +39,11 @@ src/workbench_app
 src/workbench_app_proxy
 ```
 
-## Jupyterlab extension
+## Installation
+
+Direct setup for development / testing purposes:
 
 ```
-src/workbench_app_labextension
+python3 -m pip install "git+https://github.com/huntdatacenter/workbench-app-example.git@main"
 ```
 
