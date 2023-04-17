@@ -22,8 +22,26 @@ python3 -m pip install -r requirements.txt
 Start your web application and keep it running:
 
 ```
-flask --app src/workbench_app_example/hello run
+flask --app src/workbench_app/hello run
 ```
 
 Open in browser: http://127.0.0.1:5000/
+
+## Web application
+
+```
+src/workbench_app
+```
+
+## Jupyter proxy
+
+```
+src/workbench_app_proxy
+```
+
+## Jupyterlab extension
+
+```
+src/workbench_app_labextension
+```
 
