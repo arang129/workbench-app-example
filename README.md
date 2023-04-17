@@ -22,7 +22,7 @@ python3 -m pip install -r requirements.txt
 Start your web application and keep it running:
 
 ```
-flask --app src/hello run
+flask --app src/workbench_app_example/hello run
 ```
 
 Open in browser: http://127.0.0.1:5000/
