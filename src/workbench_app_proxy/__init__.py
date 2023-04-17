@@ -1,5 +1,8 @@
 import os
 import logging
+import shutil
+import pwd
+import getpass
 from workbench_app_proxy.jupyter_config import config
 
 
@@ -37,6 +40,14 @@ def _get_timeout(default=15):
         return default
 
 
+def get_system_user():
+    try:
+        user = pwd.getpwuid(os.getuid())[0]
+    except Exception:
+        user = os.getenv('USER', getpass.getuser())
+    return user
+
+
 def run_app():
     """
     Setup application.
@@ -50,22 +61,27 @@ def run_app():
     logger.info("Initializing Jupyter Workbench Proxy")
 
     icon_path = get_icon_path()
-    executable_name = "flask"
+    try:
+        executable_name = shutil.which("flask")
+    except Exception:
+        executable_name = "flask"
     host = "127.0.0.1"
-    logger.debug(f"Icon_path:  {icon_path}")
-    logger.debug(f"Launch Command: {executable_name}")
-    logger.debug(f"Environment: {_get_env()!r}")
+    user = get_system_user()
+    logger.debug(f"[{user}] Icon_path:  {icon_path}")
+    logger.debug(f"[{user}] Launch Command: {executable_name}")
     return {
         "command": [
             executable_name,
+            f"--app={config['flask_app']}"
             "run",
             f"--host={host}",
         ],
         "timeout": 100,
         "environment": _get_env,
         "absolute_url": True,
+        # "rewrite_response": rewrite_netloc,
         "launcher_entry": {
-            "title": "Web App",
+            "title": "Workbench App",
             "icon_path": icon_path
         },
     }

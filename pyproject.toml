@@ -16,7 +16,6 @@ requires-python = ">=3.8"
 dependencies = [
     "flask",
     "jupyter-server-proxy>=3.2.2",
-    "jupyter-contrib-nbextensions",
 ]
 classifiers = [
     "Framework :: Jupyter",
@@ -42,7 +41,7 @@ keywords = [
 dev = ["black", "ruamel.yaml", "pytest", "pytest-cov"]
 
 [project.entry-points.jupyter_serverproxy_servers]
-webapp = "jupyter_workbench_proxy:run_app"
+webapp = "workbench_app_proxy:run_app"
 
 
 [tool.hatch.build.targets.wheel]
