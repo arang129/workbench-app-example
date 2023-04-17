@@ -1,29 +1,29 @@
 # workbench-app-example
 
-Create virtual environment
+Create virtual environment if not existing yet:
 
 ```
 python3 -m pip install virtualenv
 python3 -m venv env
 ```
 
-Activate virtual environment
+Activate virtual environment:
 
 ```
 source env/bin/activate
 ```
 
-Install dependencies
+Install dependencies:
 
 ```
 python3 -m pip install -r requirements.txt
 ```
 
-Edit `hello.py`.
+Start your web application and keep it running:
 
-Test run:
 ```
-flask --app hello run
+flask --app src/hello run
 ```
 
 Open in browser: http://127.0.0.1:5000/
+
