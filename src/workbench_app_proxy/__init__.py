@@ -1,5 +1,5 @@
+import os
 import logging
-from pathlib import Path
 from workbench_app_proxy.jupyter_config import config
 
 
@@ -19,12 +19,25 @@ def _get_env(port, base_url):
 
     return {
         "FLASK_RUN_PORT": str(port),
-        "APP_BASE_URL": f"{base_url}webapp",
+        "FLASK_APP_URL_PREFIX": f"{base_url}webapp",
         "FLASK_APP": config['flask_app'],
     }
 
 
-def setup_app():
+def get_icon_path():
+    return os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "app-icon.svg"
+    )
+
+
+def _get_timeout(default=15):
+    try:
+        return float(os.getenv('RSESSION_TIMEOUT', default))
+    except Exception:
+        return default
+
+
+def run_app():
     """
     Setup application.
 
@@ -36,20 +49,23 @@ def setup_app():
     logger.setLevel("INFO")
     logger.info("Initializing Jupyter Workbench Proxy")
 
-    icon_path = Path(__file__).parent / "app-icon.svg"
+    icon_path = get_icon_path()
     executable_name = "flask"
     host = "127.0.0.1"
     logger.debug(f"Icon_path:  {icon_path}")
     logger.debug(f"Launch Command: {executable_name}")
-    logger.debug(f"Extension Name: {config['extension_name']}")
+    logger.debug(f"Environment: {_get_env()!r}")
     return {
         "command": [
             executable_name,
             "run",
-            "--host={host}".format(host=host),
+            f"--host={host}",
         ],
         "timeout": 100,
         "environment": _get_env,
         "absolute_url": True,
-        "launcher_entry": {"title": "Open App", "icon_path": icon_path},
+        "launcher_entry": {
+            "title": "Web App",
+            "icon_path": icon_path
+        },
     }
