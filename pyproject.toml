@@ -10,7 +10,14 @@ authors = [
   { name="Diepiriye Okujagu", email="diepiriye.d.okujagu@ntnu.no" },
 ]
 description = "A small example package"
+readme = "README.md"
+license = { file = "LICENSE.md" }
 requires-python = ">=3.8"
+dependencies = [
+    "flask",
+    "jupyter-server-proxy>=3.2.2",
+    "jupyter-contrib-nbextensions",
+]
 classifiers = [
     "Framework :: Jupyter",
     "Framework :: Jupyter :: JupyterLab",
@@ -22,28 +29,14 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
 ]
-dynamic = ["readme", "license", "dependencies"]
 keywords = [
-    "Jupyter",
     "Jupyter Proxy",
     "Jupyter Server Proxy",
-    "HUNT Cloud",
-    "HUNT Workbench",
-    "HUNT Workbench App",
     "JupyterLab",
 ]
 
 [project.urls]
 "Homepage" = "https://github.com/huntdatacenter/workbench-app-example"
-
-[tool.hatch.readme]
-path = "README.md"
-
-[tool.hatch.license]
-path = "LICENSE.md"
-
-[tool.hatch.dependencies]
-path = "requirements.txt"
 
 [project.optional-dependencies]
 dev = ["black", "ruamel.yaml", "pytest", "pytest-cov"]
@@ -54,6 +47,12 @@ webapp = "jupyter_workbench_proxy:run_app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/workbench_app", "src/workbench_app_proxy"]
+
+[tool.hatch.build]
+sources = ["src"]
+artifacts = [
+  "*.svg",
+]
 
 [tool.hatch.build.targets.sdist]
 artifacts = []
