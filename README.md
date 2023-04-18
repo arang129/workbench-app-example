@@ -44,6 +44,6 @@ src/workbench_app_proxy
 Direct setup for development / testing purposes:
 
 ```
-python3 -m pip install "git+https://github.com/huntdatacenter/workbench-app-example.git@main"
+python3 -m pip install git+https://github.com/huntdatacenter/workbench-app-example.git@main#egg=workbench-app-example
 ```
 
