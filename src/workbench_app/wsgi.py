@@ -5,9 +5,11 @@ import os
 
 root_url_prefix = os.getenv('FLASK_APP_URL_PREFIX', '/')
 
-app = DispatcherMiddleware(
-    Response('Not Found', status=404),
+app = create_app()
+
+app.wsgi_app = DispatcherMiddleware(
+    app.wsgi_app,
     {
-        root_url_prefix: create_app(),
+        root_url_prefix: app,
     }
 )
