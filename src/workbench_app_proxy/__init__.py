@@ -72,7 +72,7 @@ def run_app():
     return {
         "command": [
             executable_name,
-            f"--app={config['flask_app']}",
+            f"--app='{config['flask_app']}'",
             "run",
             f"--host={host}",
         ],
