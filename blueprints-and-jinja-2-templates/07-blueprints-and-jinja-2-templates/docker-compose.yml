@@ -7,10 +7,10 @@ services:
       gunicorn -b 0.0.0.0:8000
         --access-logfile -
         --reload
-        "snakeeyes.app:create_app()"
+        "workbench.app:create_app()"
     environment:
       PYTHONUNBUFFERED: 'true'
     volumes:
-      - '.:/snakeeyes'
+      - '.:/workbench'
     ports:
       - '8000:8000'
