@@ -15,8 +15,9 @@ def create_app():
     app.config.from_object('workbench_app.config.settings')
     # app.config.from_pyfile('settings.py', silent=True)
 
-    root_url_prefix = os.getenv('FLASK_APP_URL_PREFIX', '/')
+    # root_url_prefix = os.getenv('FLASK_APP_URL_PREFIX', '/')
 
-    app.register_blueprint(page, url_prefix=root_url_prefix)
+    # app.register_blueprint(page, url_prefix=root_url_prefix)
+    app.register_blueprint(page)
 
     return app
