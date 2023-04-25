@@ -4,5 +4,5 @@ config = {
     # where users can create issue's or make enhancement requests
     "doc_url": "https://docs.hdc.ntnu.no/do-science/hunt-workbench/",
     # Flask app name
-    "flask_app": "workbench_app",
+    "flask_app": "workbench_app.app:create_app()",
 }

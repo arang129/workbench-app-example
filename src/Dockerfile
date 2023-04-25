@@ -1,7 +1,7 @@
 FROM python:3.10.11-slim-buster
 MAINTAINER Diepiriye Okujagu <diepiriye.d.okujagu@ntnu.no>
 
-ENV INSTALL_PATH /snakeeyes
+ENV INSTALL_PATH /workbench_app
 RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
@@ -11,4 +11,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD gunicorn -b 0.0.0.0:8000 --access-logfile - "workbench.app:create_app()"
+CMD gunicorn -b 0.0.0.0:8000 --access-logfile - "workbench_app.app:create_app()"
