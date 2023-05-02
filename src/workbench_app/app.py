@@ -4,7 +4,7 @@ import os
 from workbench_app.blueprints.page import page
 
 
-def create_app():
+def create_app(settings_override=None):
     """
     Create a Flask application using the app factory pattern.
 
@@ -18,8 +18,8 @@ def create_app():
     # root_url_prefix = os.getenv('FLASK_APP_URL_PREFIX', '/')
 
     # app.register_blueprint(page, url_prefix=root_url_prefix)
-    if app.config['SETTINGS_OVERRIDE']:
-        app.config.update(app.config['SETTINGS_OVERRIDE'])
+    if settings_override:
+        app.config.update(settings_override)
 
     app.register_blueprint(page)
 

@@ -1,3 +1,3 @@
 DEBUG = True
 
-SETTINGS_OVERRIDE = False
+SERVER_NAME = 'localhost:8000'
