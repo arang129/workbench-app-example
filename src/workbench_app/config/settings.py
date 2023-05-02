@@ -1,1 +1,3 @@
 DEBUG = True
+
+SETTINGS_OVERRIDE = False

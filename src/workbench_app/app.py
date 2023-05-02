@@ -18,8 +18,8 @@ def create_app():
     # root_url_prefix = os.getenv('FLASK_APP_URL_PREFIX', '/')
 
     # app.register_blueprint(page, url_prefix=root_url_prefix)
-    if settings_override:
-        app.config.update(settings_override)
+    if app.config['SETTINGS_OVERRIDE']:
+        app.config.update(app.config['SETTINGS_OVERRIDE'])
 
     app.register_blueprint(page)
 
