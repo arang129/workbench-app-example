@@ -1,1 +1,1 @@
-from workbench_app.hello import app  # noqa
+from workbench_app.app import create_app  # noqa

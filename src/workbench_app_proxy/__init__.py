@@ -3,7 +3,19 @@ import logging
 import shutil
 import pwd
 import getpass
-from workbench_app_proxy.jupyter_config import config
+
+logging.basicConfig(level="INFO")
+logger = logging.getLogger("workbench-app-proxy")
+logger.setLevel("INFO")
+
+APP_NAME = "webapp"
+APP_TITLE = "Workbench App"
+
+TRUTHY = ("true", "1", "yes", "on", "y")
+
+
+def truthy(val):
+    return str(val).strip('"').strip("'").lower() in TRUTHY
 
 
 def _get_env(port, base_url):
@@ -22,8 +34,7 @@ def _get_env(port, base_url):
 
     return {
         "FLASK_RUN_PORT": str(port),
-        "FLASK_APP_URL_PREFIX": f"{base_url}webapp",
-        "FLASK_APP": config['flask_app'],
+        "FLASK_APP_URL_PREFIX": f"{base_url}{APP_NAME}",
     }
 
 
@@ -33,9 +44,9 @@ def get_icon_path():
     )
 
 
-def _get_timeout(default=15):
+def _get_timeout(default=300):
     try:
-        return float(os.getenv('RSESSION_TIMEOUT', default))
+        return float(os.getenv('APP_TIMEOUT', default))
     except Exception:
         return default
 
@@ -56,32 +67,36 @@ def run_app():
     """
 
     logging.basicConfig(level="INFO")
-    logger = logging.getLogger("WorkbenchAppProxy")
-    logger.setLevel("INFO")
-    logger.info("Initializing Jupyter Workbench Proxy")
+    log = logging.getLogger("WorkbenchAppProxy")
+    log.setLevel("INFO")
+    log.info("Initializing Jupyter Workbench Proxy")
 
     icon_path = get_icon_path()
+
     try:
-        executable_name = shutil.which("flask")
+        executable_name = shutil.which("gunicorn")
     except Exception:
-        executable_name = "flask"
+        executable_name = "gunicorn"
+
     host = "127.0.0.1"
+    port = "{port}"
     user = get_system_user()
-    logger.debug(f"[{user}] Icon_path:  {icon_path}")
-    logger.debug(f"[{user}] Launch Command: {executable_name}")
+    log.debug(f"[{user}] Icon_path:  {icon_path}")
+    log.debug(f"[{user}] Launch Command: {executable_name}")
     return {
         "command": [
             executable_name,
-            f"--app={config['flask_app']}",
-            "run",
-            f"--host={host}",
+            "-w", "4",
+            "workbench_app.wsgi:app",
+            f"--bind={host}:{port}",
         ],
-        "timeout": 100,
+        "timeout": _get_timeout(),
         "environment": _get_env,
         "absolute_url": True,
         # "rewrite_response": rewrite_netloc,
         "launcher_entry": {
-            "title": "Workbench App",
-            "icon_path": icon_path
+            "title": APP_TITLE,
+            "icon_path": icon_path,
+            "enabled": truthy(os.getenv("WORKBENCH_APP_ENABLED", "true")),
         },
     }
