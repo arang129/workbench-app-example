@@ -5,8 +5,8 @@ import pwd
 import getpass
 
 logging.basicConfig(level="INFO")
-logger = logging.getLogger("workbench-app-proxy")
-logger.setLevel("INFO")
+log = logging.getLogger("workbench-app-proxy")
+log.setLevel("INFO")
 
 APP_NAME = "webapp"
 APP_TITLE = "Workbench App"
@@ -65,10 +65,6 @@ def run_app():
 
     This method is run by jupyter-server-proxy package to launch the Web app.
     """
-
-    logging.basicConfig(level="INFO")
-    log = logging.getLogger("WorkbenchAppProxy")
-    log.setLevel("INFO")
     log.info("Initializing Jupyter Workbench Proxy")
 
     icon_path = get_icon_path()
@@ -85,10 +81,7 @@ def run_app():
     log.debug(f"[{user}] Launch Command: {executable_name}")
     return {
         "command": [
-            executable_name,
-            "-w", "4",
-            "workbench_app.wsgi:app",
-            f"--bind={host}:{port}",
+            "gunicorn", "-w", "4", "workbench_app.wsgi:app", f"--bind={host}:{port}",
         ],
         "timeout": _get_timeout(),
         "environment": _get_env,
