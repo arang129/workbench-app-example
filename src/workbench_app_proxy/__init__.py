@@ -80,6 +80,7 @@ def run_app():
     log.debug(f"[{user}] Icon_path:  {icon_path}")
     log.debug(f"[{user}] Launch Command: {executable_name}")
     return {
+        # https://flask.palletsprojects.com/en/3.0.x/deploying/gunicorn/#async-with-gevent-or-eventlet
         "command": [
             "gunicorn", "-w", "4", "workbench_app.wsgi:app", f"--bind={host}:{port}",
         ],
