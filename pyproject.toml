@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "workbench-app-example"
+name = "workbench_app"
 version = "0.0.1"
 authors = [
   { name="Matus Kosut", email="matus.kosut@ntnu.no" },
@@ -15,12 +15,8 @@ license = { file = "LICENSE.md" }
 requires-python = ">=3.8"
 dependencies = [
     "flask",
-    "gunicorn",
-    "jupyter-server-proxy>=3.2.2",
 ]
 classifiers = [
-    "Framework :: Jupyter",
-    "Framework :: Jupyter :: JupyterLab",
     "Intended Audience :: Developers",
     "Natural Language :: English",
     "License :: OSI Approved :: MIT License",
@@ -30,9 +26,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
 ]
 keywords = [
-    "Jupyter Proxy",
-    "Jupyter Server Proxy",
-    "JupyterLab",
+    "Flask App",
 ]
 
 [project.urls]
@@ -40,10 +34,6 @@ keywords = [
 
 [project.optional-dependencies]
 dev = ["black", "ruamel.yaml", "pytest", "pytest-cov"]
-
-[project.entry-points.jupyter_serverproxy_servers]
-workbench_app = "workbench_app.wsgi"
-
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/workbench_app"]
