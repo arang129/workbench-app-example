@@ -42,11 +42,11 @@ keywords = [
 dev = ["black", "ruamel.yaml", "pytest", "pytest-cov"]
 
 [project.entry-points.jupyter_serverproxy_servers]
-webapp = "workbench_app_proxy:run_app"
+workbench_app = "workbench_app.wsgi"
 
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/workbench_app", "src/workbench_app_proxy"]
+packages = ["src/workbench_app"]
 
 [tool.hatch.build]
 sources = ["src"]
@@ -60,6 +60,5 @@ exclude = [".github"]
 
 [tool.hatch.build.targets.workbench_app]
 
-[tool.hatch.build.targets.workbench_app_proxy]
 
 
