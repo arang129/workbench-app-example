@@ -1,3 +1,1 @@
 flask
-jupyter-server-proxy>=3.2.2
-jupyter-contrib-nbextensions
